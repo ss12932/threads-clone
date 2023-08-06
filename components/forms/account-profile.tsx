@@ -36,7 +36,7 @@ const AccountProfile = ({ user, btnTitle }: AccountProfileProps) => {
     resolver: zodResolver(userSchema),
     defaultValues: {
       profile_photo: user?.image || "",
-      name: user?.image || "",
+      name: user?.name || "",
       username: user?.username || "",
       bio: user?.bio || "",
     },
