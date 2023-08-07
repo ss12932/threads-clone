@@ -144,6 +144,7 @@ const AccountProfile = ({ user, btnTitle }: AccountProfileProps) => {
                   onChange={(e) => handleImage(e, field.onChange)}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -162,6 +163,7 @@ const AccountProfile = ({ user, btnTitle }: AccountProfileProps) => {
                   {...field}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -180,6 +182,7 @@ const AccountProfile = ({ user, btnTitle }: AccountProfileProps) => {
                   {...field}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -194,6 +197,7 @@ const AccountProfile = ({ user, btnTitle }: AccountProfileProps) => {
               <FormControl>
                 <Textarea className="account-form_input no-focus" {...field} />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
