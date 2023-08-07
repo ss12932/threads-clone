@@ -16,8 +16,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Textarea } from "@/components/ui/textarea";
 import { usePathname, useRouter } from "next/navigation";
 
-import { updateUser } from "@/app/actions/user.actions";
+import { updateUser } from "@/lib/actions/user.actions";
 import { threadSchema } from "@/lib/validations/thread";
+import { createThread } from "@/lib/actions/thread.actions";
 interface AccountProfileProps {
   user: {
     id: string;
@@ -42,13 +43,22 @@ function PostThread({ userId }: { userId: string }) {
     },
   });
 
-  const onSubmit = () => {};
+  const onSubmit = async (values: z.infer<typeof threadSchema>) => {
+    await createThread({
+      text: values.thread,
+      author: userId,
+      communityId: null,
+      path: pathname,
+    });
+
+    router.push("/");
+  };
 
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col justify-start gap-10"
+        className="mt-10 flex flex-col justify-start gap-10"
       >
         <FormField
           control={form.control}
@@ -65,6 +75,9 @@ function PostThread({ userId }: { userId: string }) {
             </FormItem>
           )}
         />
+        <Button type="submit" className="bg-primary-500">
+          Post Thread
+        </Button>
       </form>
     </Form>
   );

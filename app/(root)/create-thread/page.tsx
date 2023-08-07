@@ -1,4 +1,4 @@
-import { fetchUser } from "@/app/actions/user.actions";
+import { fetchUser } from "@/lib/actions/user.actions";
 import PostThread from "@/components/forms/post-thread";
 import { currentUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
