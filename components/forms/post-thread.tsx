@@ -12,17 +12,12 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { userSchema } from "@/lib/validations/user";
-import Image from "next/image";
-import { ChangeEvent, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
-import { isBase64Image } from "@/lib/utils";
-import { useUploadThing } from "@/lib/uploadthing";
-import { updateUser } from "@/app/actions/user.actions";
 import { usePathname, useRouter } from "next/navigation";
 
+import { updateUser } from "@/app/actions/user.actions";
+import { threadSchema } from "@/lib/validations/thread";
 interface AccountProfileProps {
   user: {
     id: string;
@@ -36,18 +31,14 @@ interface AccountProfileProps {
 }
 
 function PostThread({ userId }: { userId: string }) {
-  const [files, setFiles] = useState<File[]>([]);
-  const { startUpload } = useUploadThing("media");
   const router = useRouter();
   const pathname = usePathname();
 
-  const form = useForm<z.infer<typeof userSchema>>({
-    resolver: zodResolver(userSchema),
+  const form = useForm<z.infer<typeof threadSchema>>({
+    resolver: zodResolver(threadSchema),
     defaultValues: {
-      profile_photo: user?.image || "",
-      name: user?.name || "",
-      username: user?.username || "",
-      bio: user?.bio || "",
+      thread: "",
+      accountId: userId,
     },
   });
   return <h1>Post thread form</h1>;
