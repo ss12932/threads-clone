@@ -20,6 +20,7 @@ import { updateUser } from "@/lib/actions/user.actions";
 import { commentSchema } from "@/lib/validations/thread";
 // import { createThread } from "@/lib/actions/thread.actions";
 import Image from "next/image";
+import { addCommentToThread } from "@/lib/actions/thread.actions";
 
 interface CommentProps {
   threadId: string;
@@ -39,14 +40,14 @@ const Comment = ({ threadId, currentUserImg, currentUserId }: CommentProps) => {
   });
 
   const onSubmit = async (values: z.infer<typeof commentSchema>) => {
-    // await createThread({
-    //   text: values.thread,
-    //   author: userId,
-    //   communityId: null,
-    //   path: pathname,
-    // });
+    await addCommentToThread(
+      threadId,
+      values.thread,
+      JSON.parse(currentUserId),
+      pathname
+    );
 
-    router.push("/");
+    form.reset();
   };
 
   return (
