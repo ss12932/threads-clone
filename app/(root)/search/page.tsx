@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { profileTabs } from "@/config/sidebar";
 import Image from "next/image";
 import ThreadsTab from "@/components/layouts/threads-tab";
+import UserCard from "@/components/cards/user-card";
 
 async function SearchPage() {
   const user = await currentUser();
@@ -32,8 +33,15 @@ async function SearchPage() {
           <p className="no-result">No users</p>
         ) : (
           <>
-            {result.users.map((user) => (
-              <UserCard />
+            {result.users.map((person) => (
+              <UserCard
+                key={person.id}
+                id={person.id}
+                name={person.name}
+                username={person.username}
+                imgUrl={person.image}
+                personType="User"
+              />
             ))}
           </>
         )}
