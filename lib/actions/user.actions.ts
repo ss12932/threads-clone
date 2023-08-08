@@ -2,7 +2,9 @@
 
 import User from "@/lib/models/user.model";
 import { connectToDB } from "@/lib/mongoose";
+import { connect } from "http2";
 import { revalidatePath } from "next/cache";
+import Thread from "@/lib/models/thread.model";
 
 interface updateUserParams {
   name: string;
@@ -49,5 +51,31 @@ export async function fetchUser(userId: string) {
     // });
   } catch (err: any) {
     throw new Error(`Failed to fetch user: ${err.message} `);
+  }
+}
+
+export async function fetchUserPosts(userId: string) {
+  try {
+    connectToDB();
+
+    // Find all threads authored by user with given user id
+
+    // TODO: populate community
+    const threads = await User.findOne({ id: userId }).populate({
+      path: "threads",
+      model: Thread,
+      populate: {
+        path: "children",
+        model: Thread,
+        populate: {
+          path: "author",
+          model: User,
+          select: "name image id",
+        },
+      },
+    });
+    return threads;
+  } catch (err: any) {
+    throw new Error(`Failed to fetch user posts: ${err.message} `);
   }
 }
