@@ -7,6 +7,7 @@ interface ProfileHeaderProps {
   username: string;
   image: string;
   bio: string;
+  type?: "User" | "Community";
 }
 
 const ProfileHeader = ({
